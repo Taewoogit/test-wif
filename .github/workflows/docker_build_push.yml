@@ -1,0 +1,51 @@
+name: Docker Build and Push
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  PROJECT_ID: ${{ secrets.PROJECT_ID }}
+  IMAGE_NAME: web
+  IMAGE_TAG: latest
+  DOCKERFILE_PATH: ./Dockerfile
+  REGION: asia-northeast3
+  REPOSITORY: repository
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      # WIF 적용
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          token_format: 'access_token'
+          workload_identity_provider: projects/828614594239/locations/global/workloadIdentityPools/wif-pool/providers/github-provider
+          service_account: 'github-service-account@amazing-source-396109.iam.gserviceaccount.com'
+          audience: 'https://github.com/Taewoogit/test-wif'
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@main
+
+
+      - name: Configure Docker to use Artifact Registry
+        run: echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin ${{ format('{0}-docker.pkg.dev', env.REGION) }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME, env.IMAGE_TAG) }} .
+          docker push ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME, env.IMAGE_TAG) }}
