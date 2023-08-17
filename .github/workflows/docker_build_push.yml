@@ -11,11 +11,12 @@ env:
   IMAGE_NAME: web
   IMAGE_TAG: latest
   DOCKERFILE_PATH: ./Dockerfile
-  GAR_LOCATION: asia-northeast3
+  REGION: asia-northeast3
   REPOSITORY: repository
 
 jobs:
   build_and_push:
+    runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
@@ -33,7 +34,7 @@ jobs:
         uses: 'google-github-actions/auth@v1'
         with:
           token_format: 'access_token'
-          workload_identity_provider: projects/828614594239/locations/global/workloadIdentityPools/git-actions/providers/github action
+          workload_identity_provider: projects/828614594239/locations/global/workloadIdentityPools/git-actions/providers/github-action
           service_account: 'github-service-account@amazing-source-396109.iam.gserviceaccount.com'
           audience: 'https://github.com/Taewoogit/test-wif'
 
