@@ -36,7 +36,7 @@ jobs:
           token_format: 'access_token'
           workload_identity_provider: projects/828614594239/locations/global/workloadIdentityPools/wif-pool/providers/github-provider
           service_account: 'github-service-account@amazing-source-396109.iam.gserviceaccount.com'
-          audience: 'https://github.com/Taewoogit/test-wif'
+          audience: 'https://github.com/Taewoogit/test-wif.git'
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@main
