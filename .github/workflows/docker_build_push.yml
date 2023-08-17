@@ -34,7 +34,7 @@ jobs:
         uses: 'google-github-actions/auth@v1'
         with:
           token_format: 'access_token'
-          workload_identity_provider: projects/828614594239/locations/global/workloadIdentityPools/git-actions/providers/github-action
+          workload_identity_provider: projects/828614594239/locations/global/workloadIdentityPools/wif-pool/providers/github-provider
           service_account: 'github-service-account@amazing-source-396109.iam.gserviceaccount.com'
           audience: 'https://github.com/Taewoogit/test-wif'
 
