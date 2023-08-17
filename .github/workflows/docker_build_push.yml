@@ -7,10 +7,11 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
-  IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+  IMAGE_NAME: web
   IMAGE_TAG: latest
-  REGION: ${{ secrets.REGION }}
-  REPOSITORY: ${{ secrets.REPOSITORY }}
+  DOCKERFILE_PATH: ./Dockerfile
+  GAR_LOCATION: asia-northeast3
+  REPOSITORY: repository
 
 jobs:
   build_and_push:
