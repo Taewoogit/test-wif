@@ -39,7 +39,8 @@ jobs:
           audience: 'https://github.com/Taewoogit/test-wif'
 
       - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@main
+
 
       - name: Configure Docker to use Artifact Registry
         run: echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin ${{ format('{0}-docker.pkg.dev', env.REGION) }}
