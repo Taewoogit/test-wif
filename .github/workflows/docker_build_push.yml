@@ -47,6 +47,7 @@ jobs:
       - name: Build and push Docker image
         run: |
           IMAGE_TAG=$(echo ${GITHUB_REF##*/} | sed 's/\//-/g')
-          docker build -t ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME, IMAGE_TAG) }} .
-          docker push ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME, IMAGE_TAG) }}
+          docker build -t ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME) }}$IMAGE_TAG .
+          docker push ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME) }}$IMAGE_TAG
+
 
