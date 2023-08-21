@@ -9,7 +9,7 @@ on:
 env:
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
   IMAGE_NAME: web
-  IMAGE_TAG: latest
+  IMAGE_TAG: ${{ github.ref }}
   DOCKERFILE_PATH: ./Dockerfile
   REGION: asia-northeast3
   REPOSITORY: repository
