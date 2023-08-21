@@ -9,7 +9,6 @@ on:
 env:
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
   IMAGE_NAME: web
-  IMAGE_TAG: ${{ github.ref }}
   DOCKERFILE_PATH: ./Dockerfile
   REGION: asia-northeast3
   REPOSITORY: repository
@@ -47,5 +46,6 @@ jobs:
 
       - name: Build and push Docker image
         run: |
+          IMAGE_TAG=$(echo ${GITHUB_REF##*/} | sed 's/\//-/g')
           docker build -t ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME, env.IMAGE_TAG) }} .
           docker push ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME, env.IMAGE_TAG) }}
