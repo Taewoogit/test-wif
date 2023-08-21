@@ -27,7 +27,6 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      # WIF 적용
       - id: 'auth'
         name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v1'
@@ -40,14 +39,10 @@ jobs:
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@main
 
-
       - name: Configure Docker to use Artifact Registry
         run: echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin ${{ format('{0}-docker.pkg.dev', env.REGION) }}
 
       - name: Build and push Docker image
         run: |
-          IMAGE_TAG=$(echo ${GITHUB_REF##*/} | sed 's/\//-/g')
-          docker build -t ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME) }}$IMAGE_TAG .
-          docker push ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME) }}$IMAGE_TAG
-
-
+          docker build -t ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME, github.run_number) }} .
+          docker push ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME, github.run_number) }}
