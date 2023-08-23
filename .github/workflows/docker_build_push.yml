@@ -5,8 +5,7 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-  repository_dispatch:
-  types: [new_image_pushed]
+
 
 env:
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
