@@ -44,11 +44,7 @@ jobs:
       - name: Configure Docker to use Artifact Registry
         run: echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin ${{ format('{0}-docker.pkg.dev', env.REGION) }}
 
-      #- name: Build and push Docker image
-       # run: |
-       #   docker build -t ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME,env.tags) }} .
-       #   docker push ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME,env.tags) }}
-      - name: Push to Artifact Registry
-        run: |-
-          docker build -t ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME, env.tags) }} .
-          docker push ${{ env.REGION }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.tags }}
+      - name: Build and push Docker image
+        run: |
+          docker build -t ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME,env.tags) }} .
+          docker push ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME, env.tags) }}
