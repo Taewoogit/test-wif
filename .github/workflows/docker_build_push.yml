@@ -47,5 +47,5 @@ jobs:
       - name: Build and push Docker image
         run: |
           latest="latest"
-          docker build -t ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME:env.tags) }} .
-          docker push ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME:env.tags) }}
+          docker build -t ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME,env.tags) }} .
+          docker push ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME,env.tags) }}
