@@ -61,4 +61,4 @@ jobs:
        #   docker push ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME,env.tags) }}
       - name: Push to Artifact Registry
         run: |-
-          docker push "${{ env.REGION }}/${{ nev.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.tags }}"
+          docker push "${{ env.REGION }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.tags }}"
