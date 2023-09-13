@@ -13,7 +13,6 @@ env:
   DOCKERFILE_PATH: ./Dockerfile
   REGION: asia-northeast3
   REPOSITORY: repository
-  tags: latest
 
 jobs:
   build_and_push:
@@ -46,5 +45,5 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME,env.tags) }} .
-          docker push ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME, env.tags) }}
+          docker build -t ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME, github.run_number) }} .
+          docker push ${{ format('{0}-docker.pkg.dev/{1}/{2}/{3}:{4}', env.REGION, env.PROJECT_ID, env.REPOSITORY, env.IMAGE_NAME, github.run_number) }}
